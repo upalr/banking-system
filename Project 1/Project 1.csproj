@@ -47,6 +47,8 @@
     <Compile Include="Customer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Type1Account.cs" />
+    <Compile Include="Type2Account.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

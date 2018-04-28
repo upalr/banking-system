@@ -45,9 +45,14 @@ namespace Project_1
                 "Total Balance: " + SumBalance();
         }
 
-        private string SumBalance()
+        private double SumBalance()
         {
-            throw new NotImplementedException();
+            var totalBalance = 0.0;
+            foreach (var account in accountList)
+            {
+                totalBalance += account.balance;
+            }
+            return totalBalance;
         }
 
         public List<Account> GetAccounts()
