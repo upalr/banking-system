@@ -28,25 +28,56 @@ namespace Project_1
 
         public void Withdraw(double amount)
         {
-            if (active == true && amount > 0 && balance > amount)
-                balance -= amount;
+            if (active == true)
+                if (amount > 0)
+                {
+                    if (balance >= amount)
+                    {
+                        balance -= amount;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Withdraw amount exceed balance!");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Negative amunt can not be withdraw!");
+                }
             else
             {
-                //Change
-                Console.WriteLine("Withdraw amount exced balance");
+                Console.WriteLine("Account inactive!");
             }
         }
 
         public override void Transfer(Account account, double amount)
         {
-            if (active == true && amount > 0 && balance > amount)
+            if (active == true)
             {
-                balance -= amount;
-                account.balance += amount;
+                if (amount > 0)
+                {
+                    if (balance >= amount) 
+                    {
+                        balance -= amount;
+                        account.balance += amount;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Tranesfer amount exceed balance!");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Negative ammount can't be transfered!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Account is inactive!");
             }
         }
 
-        public double CalculateInterrest()
+        public override double CalculateInterest()
         {
             DateTime currentDate = DateTime.Now;
             double span;
@@ -62,7 +93,7 @@ namespace Project_1
 
             double interest = (interestRate / 365 / 100) * nDays * balance;
 
-            return interestRate;
+            return interest;
         }
     }
 }

@@ -20,19 +20,46 @@ namespace Project_1
 
         public override void Transfer(Account account, double amount)
         {
-            if (active == true && amount > 0 && balance > amount && account.GetType() == typeof(Type1Account))
+            if (active == true)
             {
-                balance -= amount;
-                account.balance += amount;
+                if (amount > 0)
+                {
+                    if (balance >= amount)
+                    {
+                        if (account.GetType() != typeof(Type2Account))
+                        {
+                            if (account.owner.firstName.Equals(owner.firstName) && account.owner.lastName.Equals(owner.lastName))
+                            {
+                                balance -= amount;
+                                account.balance += amount;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Cannot transfer to another account of different coustomer!");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Cannot transfer to a Type 2 Account!");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Transfer amount exceed balance!");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Negative ammount can't be transfered!");
+                }
             }
             else
             {
-                //Change
-                Console.WriteLine("Else");
+                Console.WriteLine("Account is inactive!");
             }
         }
 
-        public double CalculateInterrest()
+        public override double CalculateInterest()
         {
             DateTime currentDate = DateTime.Now;
             double span;
@@ -46,9 +73,9 @@ namespace Project_1
             }
             double nDays = span - 1;
 
-            double interest = (interestRate / 365 / 100) * nDays * balance +(depositInterestRate / 365 / 100) * nDays * monthlyDeposit;
+            double interest = (interestRate / 365 / 100) * nDays * balance + (depositInterestRate / 365 / 100) * nDays * monthlyDeposit;
 
-            return interestRate;
+            return interest;
         }
 
         public override void UpdateBalance()

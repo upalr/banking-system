@@ -10,7 +10,10 @@ namespace Project_1
 {
     class Account
     {
-        private static uint Id;
+        private static uint id = 1;
+
+        [Required, ReadOnly(true)]
+        public uint Id { get; set; }
         [Required]
         public DateTime openedDate { get; }
         [ReadOnly(true)]
@@ -22,6 +25,7 @@ namespace Project_1
 
         public Account(Customer owner, DateTime openedDate, double balance)
         {
+            Id = id++;
             this.owner = owner;
             this.openedDate = openedDate;
             this.balance = balance;
@@ -59,10 +63,9 @@ namespace Project_1
             balance = balance + CalculateInterest();
         }
 
-
         public override string ToString() {
-            string closeDateInfo = closedDate == DateTime.MinValue ? " - Closed on " + closedDate : String.Empty;
-            return "ID: " + Id + " Open Date: " + openedDate + " Balance: " + balance.ToString("0.0") + " Owner: " + owner + closeDateInfo;
+            string closeDateInfo = closedDate != DateTime.MinValue ? "   - Closed on " + closedDate.ToString("dd/MM/yyyy") : String.Empty;
+            return "ID:   " + Id + "   Opened Date:    " + openedDate.ToString("dd/MM/yyyy") + "   Balance:   " + String.Format("{0:#,##0.#}", balance)  + "   Owner:   " + owner.firstName + "  " + owner.lastName + closeDateInfo;
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace Project_1
 {
@@ -21,7 +22,7 @@ namespace Project_1
         public DateTime dateOfBirth { get; set; }
         public int contactNumber { get; set; }
         public string email { get; set; }
-
+        [ReadOnly(true)]
         private List<Account> accountList = new List<Account>();
 
         public Customer(string firstName, string lastName, string address, DateTime dateOfBirth, int contactNumber, string email)
@@ -36,13 +37,14 @@ namespace Project_1
 
         public override string ToString()
         {
-            return "First Name: " + firstName +
-                "Last Name: " + lastName + 
-                "Address: " + address +
-                "Date of birth: " + dateOfBirth + 
-                "Contact Number: " + contactNumber + 
-                "Email: " + email +
-                "Total Balance: " + SumBalance();
+            string contact = contactNumber == 0 ? String.Empty : contactNumber.ToString();
+            return "Name:  " + firstName +
+                " " + lastName + 
+                "   Address:  " + address +
+                "   DOB:  " + dateOfBirth.ToString("dd/MM/yyyy") + 
+                "  Contact:  " + contact + 
+                "  Email:  " + email +
+                "   Total Balance:  " + SumBalance();
         }
 
         private double SumBalance()
