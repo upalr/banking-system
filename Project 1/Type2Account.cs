@@ -25,12 +25,15 @@ namespace Project_1
             get { return _DepositInterestRate; }
         }
 
+        //Constractor of Type2Account
         public Type2Account(Customer owner, DateTime openedDate, double balance) : base(owner, openedDate, balance)
         { }
 
+        //Constractor of Type2Account
         public Type2Account(Customer owner, double balance) : this(owner, DateTime.Now, balance)
         { }
 
+        //Trannsfer money to another account
         public override void Transfer(Account account, double amount)
         {
             if (Active == true)
@@ -72,6 +75,7 @@ namespace Project_1
             }
         }
 
+        // Calculate monthly interest
         public override double CalculateInterest()
         {
             DateTime currentDate = DateTime.Now;
@@ -91,6 +95,7 @@ namespace Project_1
             return interest;
         }
 
+        //Update balance with the interest
         public override void UpdateBalance()
         {
             base.UpdateBalance();

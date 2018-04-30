@@ -7,24 +7,34 @@ namespace Project_1
 
         private static double _InterestRate = 2.0;
 
-        public double InterestRate { get; }
+        public double InterestRate
+        {
+            get
+            {
+                return _InterestRate;
+            }
+        }
 
+        //Constractor of Type1Account
         public Type1Account(Customer owner, DateTime openedDate, double balance) : base(owner, openedDate, balance)
         {
 
         }
 
+        //Constractor of Type1Account
         public Type1Account(Customer owner, double balance) : this(owner, DateTime.Now, balance)
         {
 
         }
 
+        // Deposite money to the account
         public void Deposit(double amount)
         {
             if (Active == true && amount > 0)
                 Balance += amount;
         }
 
+        //Withdraw from the account
         public void Withdraw(double amount)
         {
             if (Active == true)
@@ -49,6 +59,7 @@ namespace Project_1
             }
         }
 
+        //Trannsfer money to another account
         public override void Transfer(Account account, double amount)
         {
             if (Active == true)
@@ -76,6 +87,7 @@ namespace Project_1
             }
         }
 
+        // Calculate monthly interest
         public override double CalculateInterest()
         {
             DateTime currentDate = DateTime.Now;
@@ -90,7 +102,7 @@ namespace Project_1
             }
             double nDays = span - 1;
 
-            double interest = (InterestRate / 365 / 100) * nDays * Balance;
+            double interest = (_InterestRate / 365 / 100) * nDays * Balance;
 
             return interest;
         }

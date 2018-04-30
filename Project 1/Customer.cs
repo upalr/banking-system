@@ -85,7 +85,7 @@ namespace Project_1
         }
 
 
-
+        //Constractor
         public Customer(string firstName, string lastName, string address, DateTime dateOfBirth, string contactNumber = "", string email = "")
         {
             FirstName = firstName;
@@ -97,6 +97,7 @@ namespace Project_1
             _AccountList = new List<Account>();
         }
 
+        //Copy constractor
         public Customer(Customer customer)
         {
             _FirstName = customer.FirstName;
@@ -108,11 +109,13 @@ namespace Project_1
             _AccountList = new List<Account>(customer._AccountList);
         }
 
+        //Add account for one customer
         public void AddAccount(Account account)
         {
             _AccountList.Add(account);
         }
 
+        // Total balance calculated by adding all account's of one customer 
         private double SumBalance()
         {
             var totalBalance = 0.0;
@@ -123,6 +126,7 @@ namespace Project_1
             return totalBalance;
         }
 
+        //String representation of the class
         public override string ToString()
         {
             return "Name:  " + FirstName +

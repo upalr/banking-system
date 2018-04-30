@@ -53,6 +53,7 @@ namespace Project_1
             get { return _Owner; }
         }
 
+        // Account constractor
         public Account(Customer owner, DateTime openedDate, double balance)
         {
             _Owner = owner;
@@ -72,6 +73,7 @@ namespace Project_1
             _Active = true;
         }
 
+        // Account constractor
         public Account(Customer owner, double balance) : this(owner, DateTime.Now, balance)
         {
 
@@ -86,6 +88,7 @@ namespace Project_1
             }
         }
 
+        //Teansfer money to another account 
         public virtual void Transfer(Account account, double amount)
         {
             if (_Active == true)
@@ -95,16 +98,19 @@ namespace Project_1
             }
         }
 
+        //Calculate interest for the account
         public virtual double CalculateInterest()
         {
             return 0.0;
         }
 
+        //Update balance with the interest
         public virtual void UpdateBalance()
         {
             _Balance = _Balance + CalculateInterest();
         }
 
+        //String representation of the class
         public override string ToString()
         {
             string closeDateInfo = _ClosedDate != DateTime.MinValue ? "   - Closed on " + _ClosedDate.ToString("dd/MM/yyyy") : String.Empty;
