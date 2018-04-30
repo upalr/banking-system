@@ -1,35 +1,74 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project_1
 {
     class Account
     {
-        private static uint id = 1;
+        private static uint ID = 1;
 
-        [Required, ReadOnly(true)]
-        public uint Id { get; set; }
-        [Required]
-        public DateTime openedDate { get; }
-        [ReadOnly(true)]
-        public DateTime closedDate { get; private set; }
-        [ReadOnly(true)]
-        public bool active { get; private set; }
-        public double balance { get; set; }
-        public Customer owner { get; }
+        private uint _Id = ID++;
+        private DateTime _OpenedDate;
+        private DateTime _ClosedDate;
+        private bool _Active;
+        private double _Balance = 0;
+        private Customer _Owner;
+
+        public uint Id
+        {
+            get { return _Id; }
+        }
+
+        public DateTime OpenedDate
+        {
+            get
+            {
+                return _OpenedDate;
+
+            }
+        }
+
+        public DateTime ClosedDate
+        {
+            get { return _ClosedDate; }
+        }
+
+        public bool Active
+        {
+            get { return _Active; }
+        }
+
+        public double Balance
+        {
+            get
+            {
+                return _Balance;
+            }
+            set
+            {
+                _Balance = value;
+            }
+        }
+        public Customer Owner {
+            get { return _Owner; }
+        }
 
         public Account(Customer owner, DateTime openedDate, double balance)
         {
-            Id = id++;
-            this.owner = owner;
-            this.openedDate = openedDate;
-            this.balance = balance;
-            active = true;
+            _Owner = owner;
+            if (openedDate.CompareTo(DateTime.Now) <= 0)
+                _OpenedDate = OpenedDate;
+            else
+                Console.WriteLine("The opened date of an account must be on or before the current date");
+
+            if (balance >= 0)
+            {
+                _Balance = balance;
+            }
+            else
+            {
+                Console.WriteLine("Balance must be equal or greater than 0.");
+            }
+            _Active = true;
         }
 
         public Account(Customer owner, double balance) : this(owner, DateTime.Now, balance)
@@ -39,33 +78,40 @@ namespace Project_1
 
         public void Close()
         {
-            if (active == true)
+            if (_Active == true)
             {
-                active = false;
-                closedDate = DateTime.Now;
+                _Active = false;
+                _ClosedDate = DateTime.Now;
             }
         }
 
         public virtual void Transfer(Account account, double amount)
         {
-            if (active == true)
+            if (_Active == true)
             {
-                balance -= amount;
-                account.balance += amount;
+                _Balance -= amount;
+                account.Balance += amount;
             }
         }
 
-        public virtual double CalculateInterest() {
+        public virtual double CalculateInterest()
+        {
             return 0.0;
         }
 
-        public virtual void UpdateBalance() {
-            balance = balance + CalculateInterest();
+        public virtual void UpdateBalance()
+        {
+            _Balance = _Balance + CalculateInterest();
         }
 
-        public override string ToString() {
-            string closeDateInfo = closedDate != DateTime.MinValue ? "   - Closed on " + closedDate.ToString("dd/MM/yyyy") : String.Empty;
-            return "ID:   " + Id + "   Opened Date:    " + openedDate.ToString("dd/MM/yyyy") + "   Balance:   " + String.Format("{0:#,##0.#}", balance)  + "   Owner:   " + owner.firstName + "  " + owner.lastName + closeDateInfo;
+        public override string ToString()
+        {
+            string closeDateInfo = _ClosedDate != DateTime.MinValue ? "   - Closed on " + _ClosedDate.ToString("dd/MM/yyyy") : String.Empty;
+            return "ID:   " + Id + 
+                   "   Opened Date:    " + _OpenedDate.ToString("dd/MM/yyyy") + 
+                   "   Balance:   " + String.Format("{0:#,##0.#}", _Balance) + 
+                   "   Owner:   " + _Owner.FirstName + "  " + _Owner.LastName + 
+                   closeDateInfo;
         }
     }
 }

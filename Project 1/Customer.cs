@@ -1,30 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace Project_1
 {
     class Customer
     {
-        private DateTime dateOfBirth;
-        private string contactNumber;
+        private string _FirstName;
+        private string _LastName;
+        private string _Address;
+        private DateTime _DateOfBirth;
+        private string _ContactNumber;
+        private string _Email;
+        private List<Account> _AccountList;
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Address { get; set; }
+
+        public string FirstName {
+            get { return _FirstName; }
+            set { _FirstName = value; }
+        }
+
+        public string LastName
+        {
+            get { return _LastName; }
+            set { _LastName = value; }
+        }
+
+        public string Address
+        {
+            get { return _Address; }
+            set { _Address = value; }
+        }
+
         public DateTime DateOfBirth
         {
             get
             {
-                return dateOfBirth;
+                return _DateOfBirth;
             }
             set
             {
                 DateTime CurrentDate = DateTime.Now;
                 if (CurrentDate.Year - value.Year >= 16)
                 {
-                    dateOfBirth = value;
+                    _DateOfBirth = value;
                 }
                 else
                 {
@@ -33,28 +52,40 @@ namespace Project_1
                 }
             }
         }
-        public string ContactNumber {
+
+        public string ContactNumber
+        {
             get
             {
-                return contactNumber;
+                return _ContactNumber;
             }
             set
             {
                 if (value.Length == 10)
                 {
-                    contactNumber = value;
+                    _ContactNumber = value;
                 }
                 else
                 {
-                    Console.WriteLine("contact number must contain exactly 10 digits.");
+                    Console.WriteLine("Contact number must contain exactly 10 digits.");
                 }
             }
         }
-        public string Email { get; set; }
 
-        private readonly List<Account> AccountList;
+        public string Email
+        {
+            get { return _Email; }
+            set { _Email = value; }
+        }
 
-        public Customer(string firstName, string lastName, string address, DateTime dateOfBirth, string contactNumber, string email)
+        public ReadOnlyCollection<Account> AccountList
+        {
+            get { return _AccountList.AsReadOnly(); }
+        }
+
+
+
+        public Customer(string firstName, string lastName, string address, DateTime dateOfBirth, string contactNumber = "", string email = "")
         {
             FirstName = firstName;
             LastName = lastName;
@@ -62,55 +93,44 @@ namespace Project_1
             DateOfBirth = dateOfBirth;
             ContactNumber = contactNumber;
             Email = email;
-            AccountList = new List<Account>();
+            _AccountList = new List<Account>();
         }
 
-        public Customer(string firstName, string lastName, string address, DateTime dateOfBirth, string email)
+        public Customer(Customer customer)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Address = address;
-            DateOfBirth = dateOfBirth;
-            ContactNumber = string.Empty;
-            Email = email;
-            AccountList = new List<Account>();
+            _FirstName = customer.FirstName;
+            _LastName = customer.LastName;
+            _Address = customer.Address;
+            _DateOfBirth = customer.DateOfBirth;
+            _ContactNumber = customer.ContactNumber;
+            _Email = customer.Email;
+            _AccountList = new List<Account>(customer._AccountList);
         }
 
-        public Customer(string firstName, string lastName, string address, DateTime dateOfBirth)
+        public void AddAccount(Account account)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Address = address;
-            DateOfBirth = dateOfBirth;
-            ContactNumber = string.Empty;
-            Email = string.Empty;
-            AccountList = new List<Account>();
+            _AccountList.Add(account);
         }
+
+        private double SumBalance()
+        {
+            var totalBalance = 0.0;
+            foreach (var account in _AccountList)
+            {
+                totalBalance += account.Balance;
+            }
+            return totalBalance;
+        }
+
         public override string ToString()
         {
-            //string contact = ContactNumber == 0 ? String.Empty : ContactNumber.ToString();
             return "Name:  " + FirstName +
                 " " + LastName +
                 "   Address:  " + Address +
                 "   DOB:  " + DateOfBirth.ToString("dd/MM/yyyy") +
                 "  Contact:  " + ContactNumber +
                 "  Email:  " + Email +
-                "   Total Balance:  " + SumBalance();
-        }
-
-        private double SumBalance()
-        {
-            var totalBalance = 0.0;
-            foreach (var account in AccountList)
-            {
-                totalBalance += account.balance;
-            }
-            return totalBalance;
-        }
-
-        public List<Account> GetAccounts()
-        {
-            return AccountList;
-        }
+                "   Total Balance:  " + SumBalance().ToString("0.0");
+        }  
     }
 }

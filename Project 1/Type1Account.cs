@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project_1
 {
     class Type1Account : Account
     {
-        public static double interestRate { get; } = 2.0;
+
+        private static double _InterestRate = 2.0;
+
+        public double InterestRate { get;}
 
         public Type1Account(Customer owner, DateTime openedDate, double balance) : base(owner, openedDate, balance)
         {
@@ -22,18 +21,18 @@ namespace Project_1
 
         public void Deposit(double amount)
         {
-            if (active == true && amount > 0)
-                balance += amount;
+            if (Active == true && amount > 0)
+                Balance += amount;
         }
 
         public void Withdraw(double amount)
         {
-            if (active == true)
+            if (Active == true)
                 if (amount > 0)
                 {
-                    if (balance >= amount)
+                    if (Balance >= amount)
                     {
-                        balance -= amount;
+                        Balance -= amount;
                     }
                     else
                     {
@@ -52,14 +51,14 @@ namespace Project_1
 
         public override void Transfer(Account account, double amount)
         {
-            if (active == true)
+            if (Active == true)
             {
                 if (amount > 0)
                 {
-                    if (balance >= amount) 
+                    if (Balance >= amount) 
                     {
-                        balance -= amount;
-                        account.balance += amount;
+                        Balance -= amount;
+                        account.Balance += amount;
                     }
                     else
                     {
@@ -81,9 +80,9 @@ namespace Project_1
         {
             DateTime currentDate = DateTime.Now;
             double span;
-            if (currentDate.Month == openedDate.Month && currentDate.Year == openedDate.Year)
+            if (currentDate.Month == OpenedDate.Month && currentDate.Year == OpenedDate.Year)
             {
-                span = currentDate.Subtract(openedDate).TotalDays;
+                span = currentDate.Subtract(OpenedDate).TotalDays;
             }
             else
             {
@@ -91,7 +90,7 @@ namespace Project_1
             }
             double nDays = span - 1;
 
-            double interest = (interestRate / 365 / 100) * nDays * balance;
+            double interest = (InterestRate / 365 / 100) * nDays * Balance;
 
             return interest;
         }
