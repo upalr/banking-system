@@ -1,56 +1,107 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
 
 namespace Project_1
 {
     class Customer
     {
-        [Required]
-        public string firstName { get; set; }
-        [Required]
-        public string lastName { get; set; }
-        [Required]
-        public string address { get; set; }
-        [Required]
-        public DateTime dateOfBirth { get; set; }
-        public int contactNumber { get; set; }
-        public string email { get; set; }
-        [ReadOnly(true)]
-        private List<Account> accountList = new List<Account>();
+        private DateTime dateOfBirth;
+        private string contactNumber;
 
-        public Customer(string firstName, string lastName, string address, DateTime dateOfBirth, int contactNumber, string email)
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
+        public DateTime DateOfBirth
         {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.address = address;
-            this.dateOfBirth = dateOfBirth;
-            this.contactNumber = contactNumber;
-            this.email = email;
+            get
+            {
+                return dateOfBirth;
+            }
+            set
+            {
+                DateTime CurrentDate = DateTime.Now;
+                if (CurrentDate.Year - value.Year >= 16)
+                {
+                    dateOfBirth = value;
+                }
+                else
+                {
+                    Console.WriteLine("Customer must be at age of 16 or above.");
+
+                }
+            }
+        }
+        public string ContactNumber {
+            get
+            {
+                return contactNumber;
+            }
+            set
+            {
+                if (value.Length == 10)
+                {
+                    contactNumber = value;
+                }
+                else
+                {
+                    Console.WriteLine("contact number must contain exactly 10 digits.");
+                }
+            }
+        }
+        public string Email { get; set; }
+
+        private readonly List<Account> AccountList;
+
+        public Customer(string firstName, string lastName, string address, DateTime dateOfBirth, string contactNumber, string email)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Address = address;
+            DateOfBirth = dateOfBirth;
+            ContactNumber = contactNumber;
+            Email = email;
+            AccountList = new List<Account>();
         }
 
+        public Customer(string firstName, string lastName, string address, DateTime dateOfBirth, string email)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Address = address;
+            DateOfBirth = dateOfBirth;
+            ContactNumber = string.Empty;
+            Email = email;
+            AccountList = new List<Account>();
+        }
+
+        public Customer(string firstName, string lastName, string address, DateTime dateOfBirth)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Address = address;
+            DateOfBirth = dateOfBirth;
+            ContactNumber = string.Empty;
+            Email = string.Empty;
+            AccountList = new List<Account>();
+        }
         public override string ToString()
         {
-            string contact = contactNumber == 0 ? String.Empty : contactNumber.ToString();
-            return "Name:  " + firstName +
-                " " + lastName + 
-                "   Address:  " + address +
-                "   DOB:  " + dateOfBirth.ToString("dd/MM/yyyy") + 
-                "  Contact:  " + contact + 
-                "  Email:  " + email +
+            //string contact = ContactNumber == 0 ? String.Empty : ContactNumber.ToString();
+            return "Name:  " + FirstName +
+                " " + LastName +
+                "   Address:  " + Address +
+                "   DOB:  " + DateOfBirth.ToString("dd/MM/yyyy") +
+                "  Contact:  " + ContactNumber +
+                "  Email:  " + Email +
                 "   Total Balance:  " + SumBalance();
         }
 
         private double SumBalance()
         {
             var totalBalance = 0.0;
-            foreach (var account in accountList)
+            foreach (var account in AccountList)
             {
                 totalBalance += account.balance;
             }
@@ -59,7 +110,7 @@ namespace Project_1
 
         public List<Account> GetAccounts()
         {
-            return accountList;
+            return AccountList;
         }
     }
 }
