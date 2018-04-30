@@ -48,7 +48,8 @@ namespace Project_1
                 _Balance = value;
             }
         }
-        public Customer Owner {
+        public Customer Owner
+        {
             get { return _Owner; }
         }
 
@@ -107,10 +108,10 @@ namespace Project_1
         public override string ToString()
         {
             string closeDateInfo = _ClosedDate != DateTime.MinValue ? "   - Closed on " + _ClosedDate.ToString("dd/MM/yyyy") : String.Empty;
-            return "ID:   " + Id + 
-                   "   Opened Date:    " + _OpenedDate.ToString("dd/MM/yyyy") + 
-                   "   Balance:   " + String.Format("{0:#,##0.#}", _Balance) + 
-                   "   Owner:   " + _Owner.FirstName + "  " + _Owner.LastName + 
+            return "ID:   " + Id +
+                   "   Opened Date:    " + _OpenedDate.ToString("dd/MM/yyyy") +
+                   "   Balance:   " +  _Balance.ToString("0,0.0") +
+                   "   Owner:   " + _Owner.FirstName + "  " + _Owner.LastName +
                    closeDateInfo;
         }
     }

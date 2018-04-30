@@ -9,16 +9,19 @@ namespace Project_1
         public static double _DepositInterestRate = 4.0;
 
 
-        public double MonthlyDeposit {
-            get {return _MonthlyDeposit; }
+        public double MonthlyDeposit
+        {
+            get { return _MonthlyDeposit; }
             set { _MonthlyDeposit = value; }
         }
 
-        public double AnnualInterestRate {
+        public double AnnualInterestRate
+        {
             get { return _AnnualInterestRate; }
         }
 
-        public  double DepositInterestRate {
+        public double DepositInterestRate
+        {
             get { return _DepositInterestRate; }
         }
 

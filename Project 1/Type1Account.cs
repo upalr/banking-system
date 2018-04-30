@@ -7,7 +7,7 @@ namespace Project_1
 
         private static double _InterestRate = 2.0;
 
-        public double InterestRate { get;}
+        public double InterestRate { get; }
 
         public Type1Account(Customer owner, DateTime openedDate, double balance) : base(owner, openedDate, balance)
         {
@@ -55,7 +55,7 @@ namespace Project_1
             {
                 if (amount > 0)
                 {
-                    if (Balance >= amount) 
+                    if (Balance >= amount)
                     {
                         Balance -= amount;
                         account.Balance += amount;

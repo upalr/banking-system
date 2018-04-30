@@ -11,7 +11,7 @@ namespace Project_1
         static void Main(string[] args)
         {
             Customer c1 = new Customer("Arley", "Praise", "12 Hay Rd", new DateTime(1990, 10, 02), "0412232116", "arleyp@gmail.com");
-            Customer c2 = new Customer("Joseph", "Abot", "4/1 Mandy Pl", new DateTime(1970, 05, 11), "0413221624", String.Empty);
+            Customer c2 = new Customer("Joseph", "Abot", "4/1 Mandy Pl", new DateTime(1970, 05, 11), "0413221624");
             Customer c3 = new Customer("Rose", "Magaret", "30 Buxton St", new DateTime(1980, 07, 06), "0", "rmt@yahoo.com");
 
             Type1Account a1 = new Type1Account(c1, new DateTime(2018, 02, 01), 100);

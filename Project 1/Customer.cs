@@ -15,7 +15,8 @@ namespace Project_1
         private List<Account> _AccountList;
 
 
-        public string FirstName {
+        public string FirstName
+        {
             get { return _FirstName; }
             set { _FirstName = value; }
         }
@@ -130,7 +131,7 @@ namespace Project_1
                 "   DOB:  " + DateOfBirth.ToString("dd/MM/yyyy") +
                 "  Contact:  " + ContactNumber +
                 "  Email:  " + Email +
-                "   Total Balance:  " + SumBalance().ToString("0.0");
-        }  
+                "   Total Balance:  " + SumBalance().ToString("0,0.0");
+        }
     }
 }
