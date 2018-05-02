@@ -121,7 +121,7 @@ namespace Project_1
             var totalBalance = 0.0;
             foreach (var account in _AccountList)
             {
-                totalBalance += account.Balance;
+                totalBalance = totalBalance + account.Balance;// total
             }
             return totalBalance;
         }
