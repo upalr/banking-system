@@ -8,7 +8,6 @@ namespace Project_1
         public static double _AnnualInterestRate = 3.0;
         public static double _DepositInterestRate = 4.0;
 
-
         public double MonthlyDeposit
         {
             get { return _MonthlyDeposit; }
