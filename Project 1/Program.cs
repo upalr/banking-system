@@ -14,20 +14,6 @@ namespace Project_1
             Customer c2 = new Customer("Joseph", "Abot", "4/1 Mandy Pl", new DateTime(1970, 05, 11), "0413221624");
             Customer c3 = new Customer("Rose", "Magaret", "30 Buxton St", new DateTime(1980, 07, 06), "0", "rmt@yahoo.com");
 
-            //Customer zahod2 = new Customer("Arley", "Praise", "12 Hay Rd", new DateTime(1990, 10, 02), "0412232116", "arleyp@gmail.com");
-            //Customeer zahid = new Customeer(c1);
-
-            //Console.WriteLine(c1.FirstName);
-            //c1.FirstName = "zahid";
-            //List<Account> = c1.AccountList();
-            //int i = 10;
-            //int k = i;
-            //k = 15;
-
-            //c2 = c1;
-            //c2.Address = "Melbourne";
-
-
             Type1Account a1 = new Type1Account(c1, new DateTime(2018, 02, 01), 100);
             Type2Account a2 = new Type2Account(c1, new DateTime(2018, 02, 15), 5000);
             Type1Account a3 = new Type1Account(c2, new DateTime(2018, 03, 20), 0);
